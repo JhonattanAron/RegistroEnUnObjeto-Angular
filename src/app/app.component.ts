@@ -19,7 +19,7 @@ export class AppComponent {
   protected cuadroNombre:string = "";
   protected cuadroApellido:string = "";
   protected cuadroCargo:string = "";
-  protected cuadroSalario:number = 0;
+  protected cuadroSalario:number = 1200;
   @ViewChild('empleadosTable', { static: true }) table!: MatTable<any>;
 
   constructor(private _snackBar:MatSnackBar){}
