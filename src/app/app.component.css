@@ -1,0 +1,13 @@
+.table-container{
+    margin: 3vh 3vh 3vh;
+}
+.titulo{
+    display: flex;
+    justify-content: center;
+}
+.input{
+    width: 100%;
+}
+.card{
+    margin-bottom: 3vh;
+}

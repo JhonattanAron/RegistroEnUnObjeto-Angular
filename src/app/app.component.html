@@ -1,11 +1,64 @@
-<div>
-  <table mat-table [dataSource]="empleados">
-    <ng-container matColumnDef="nombre">
-      <th mat-header-cell *matHeaderCellDef>Nombre</th>
-      <td mat-cell *matCellDef="let empleado">{{ empleado.Nombre }}</td>
+<div class="titulo">
+  <h1>{{titulo}}</h1>
+</div>
+<div class="table-container">
+  <form action="">
+    <mat-card class="card">
+      <mat-card-content>
+        <mat-card-title class="titulo">Agregar Empleado</mat-card-title>
+
+        <mat-form-field class="input">
+          <mat-label>Ingresa el Nombre</mat-label>
+          <input type="text" name="nombre" matInput [(ngModel)]="cuadroNombre">
+        </mat-form-field>
+
+        <mat-form-field class="input">
+          <mat-label>Ingresa el Apellido</mat-label>
+          <input matInput type="text" name="apellido" [(ngModel)]="cuadroApellido">
+        </mat-form-field>
+
+        <mat-form-field class="input">
+          <mat-label>Ingresa el Area</mat-label>
+          <input name="cargo" type="text" matInput [(ngModel)]="cuadroCargo">
+        </mat-form-field>
+
+        <mat-form-field class="input">
+          <mat-label>Salario</mat-label>
+          <input matInput placeholder="Ingresa El Salario" name="salario" type="number" [(ngModel)]="cuadroSalario">
+        </mat-form-field>
+        <button  mat-flat-button color="primary" (click)="agregarEmpleado()">
+          <mat-icon fontIcon="add_circle"></mat-icon>
+          Agregar Empleado
+        </button>
+
+      </mat-card-content>
+    </mat-card>
+  </form>
+  <table #empleadosTable  mat-table [dataSource]="empleados" class="mat-elevation-z8">
+    <ng-container matColumnDef="nombre"> <!-- Cambiar "position" a "nombre" -->
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let empleado"> {{ empleado.nombre }} </td>
     </ng-container>
-    
-    <tr mat-header-row *matHeaderRowDef="['nombre']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['nombre']"></tr>
+
+    <ng-container matColumnDef="apellido">
+      <th mat-header-cell *matHeaderCellDef>Apellido</th>
+      <td mat-cell *matCellDef="let empleado">{{empleado.apellido}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="cargo">
+      <th mat-header-cell *matHeaderCellDef>Area</th>
+      <td mat-cell *matCellDef="let empleado">{{empleado.cargo}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="salario">
+      <th mat-header-cell *matHeaderCellDef>Salario</th>
+      <td mat-cell *matCellDef="let empleado">{{empleado.salario}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['nombre' , 'apellido' , 'cargo' , 'salario' ]"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['nombre' , 'apellido' , 'cargo' , 'salario']"></tr>
+
   </table>
+
+
 </div>
