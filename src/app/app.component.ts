@@ -10,16 +10,16 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class AppComponent {
   protected titulo = 'Listado de Empleados';
+  protected cuadroNombre:string = "";
+  protected cuadroApellido:string = "";
+  protected cuadroCargo:string = "";
+  protected cuadroSalario:number = 1200;
   protected empleados:Empleado[] = [
     new Empleado("Aron" , "Cachago" , "Programador", 2500),
     new Empleado("Ana" , "Fernandez" , "Directora", 2500),
     new Empleado("Maria" , "Cuti" , "Talentos Humanos", 1000),
     new Empleado("Laura" , "Lopez" , "Administrativo", 800)
   ];
-  protected cuadroNombre:string = "";
-  protected cuadroApellido:string = "";
-  protected cuadroCargo:string = "";
-  protected cuadroSalario:number = 1200;
   @ViewChild('empleadosTable', { static: true }) table!: MatTable<any>;
 
   constructor(private _snackBar:MatSnackBar){}
