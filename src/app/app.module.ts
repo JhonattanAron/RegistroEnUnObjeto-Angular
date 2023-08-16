@@ -11,10 +11,12 @@ import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { EmpleadoHijoCComponent } from './empleado-hijo-c/empleado-hijo-c.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    EmpleadoHijoCComponent
   ],
   imports: [
     BrowserModule,
