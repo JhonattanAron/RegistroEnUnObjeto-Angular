@@ -12,18 +12,21 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { EmpleadoHijoCComponent } from './empleado-hijo-c/empleado-hijo-c.component';
+import { CaracteristicasEmpleadoCComponent } from './caracteristicas-empleado-c/caracteristicas-empleado-c.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
     AppComponent,
-    EmpleadoHijoCComponent
+    EmpleadoHijoCComponent,
+    CaracteristicasEmpleadoCComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule, MatTableModule , MatButtonModule,
     MatIconModule , MatCardModule , MatInputModule , MatFormFieldModule,
-    MatSnackBarModule
+    MatSnackBarModule , MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

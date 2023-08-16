@@ -1,0 +1,10 @@
+<div>
+    <label for="caracteristica">Carcateristica:</label>
+    <input type="text" id="caracteristica" #nuevaCaracteristicaNombre>
+  
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" #nuevoNombre>
+  
+    <button type="button" (click)="agregarCaracteristica(nuevaCaracteristicaNombre.value, nuevoNombre.value)" mat-button>Agregar Caracteristica</button>
+  </div>
+  

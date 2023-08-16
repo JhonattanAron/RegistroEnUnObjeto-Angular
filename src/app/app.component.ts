@@ -18,7 +18,7 @@ export class AppComponent {
     new Empleado("Maria" , "Cuti" , "Talentos Humanos", 1000),
     new Empleado("Laura" , "Lopez" , "Administrativo", 800)
   ];
-  protected columnas:string[] = ['nombre' , 'apellido' , 'cargo' , 'salario']
+  protected columnas:string[] = ['nombre' , 'apellido' , 'cargo' , 'salario', 'acciones']
   @ViewChild(EmpleadoHijoCComponent , {static: false}) empleadosTableComponent:EmpleadoHijoCComponent;
 
   constructor(private _snackBar:MatSnackBar){}
