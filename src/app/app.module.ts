@@ -15,6 +15,7 @@ import {EmpleadoHijoCComponent } from './empleado-hijo-c/empleado-hijo-c.compone
 import {CaracteristicasEmpleadoCComponent } from './caracteristicas-empleado-c/caracteristicas-empleado-c.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatMenuModule} from '@angular/material/menu';
+import { ServicioEmpleadosService } from './servicio-empleados.service';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import {MatMenuModule} from '@angular/material/menu';
     MatIconModule , MatCardModule , MatInputModule , MatFormFieldModule,
     MatSnackBarModule , MatMenuModule , MatSelectModule
   ],
-  providers: [],
+  providers: [ServicioEmpleadosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

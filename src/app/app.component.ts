@@ -1,7 +1,7 @@
 import { Component , ViewChild } from '@angular/core';
 import { Empleado } from 'src/models/empleado.model';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import { EmpleadoHijoCComponent } from './empleado-hijo-c/empleado-hijo-c.component';
+import { ServicioEmpleadosService } from './servicio-empleados.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,18 +18,33 @@ export class AppComponent {
     new Empleado("Maria" , "Cuti" , "Talentos Humanos", 1000),
     new Empleado("Laura" , "Lopez" , "Administrativo", 800)
   ];
-  protected columnas:string[] = ['nombre' , 'apellido' , 'cargo' , 'salario', 'acciones']
-  @ViewChild(EmpleadoHijoCComponent , {static: false}) empleadosTableComponent:EmpleadoHijoCComponent;
 
-  constructor(private _snackBar:MatSnackBar){}
+
+
+  protected columnas:string[] = ['nombre' ,
+   'apellido' , 'cargo' , 
+   'salario', 'acciones']
+
+  @ViewChild(EmpleadoHijoCComponent , 
+    {static: false}) empleadosTableComponent:EmpleadoHijoCComponent;
+
+  constructor(
+    private miServicio:ServicioEmpleadosService
+    ){
+
+    }
 
 
   protected agregarEmpleado(){
-    let miEmpleado = new Empleado(this.cuadroNombre , this.cuadroApellido , this.cuadroCargo , this.cuadroSalario);
+
+    let miEmpleado = new Empleado(this.cuadroNombre , 
+      this.cuadroApellido , this.cuadroCargo , 
+      this.cuadroSalario);
+
     this.empleados.push(miEmpleado);
     this.empleadosTableComponent.updateTable();
     this.limpiarCuadros()
-    this._snackBar.open("Empleado Agregado Con Exito" , "Close")
+    this.miServicio.muestraMensaje(`Nombre del Empleado Agregado: ${miEmpleado.nombre}`)
   }
   protected limpiarCuadros(){
       this.cuadroNombre = "";

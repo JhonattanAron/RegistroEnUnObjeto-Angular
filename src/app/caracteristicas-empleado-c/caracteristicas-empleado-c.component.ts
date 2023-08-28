@@ -1,11 +1,19 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { empleadoCaracteristica } from 'src/models/empleadoCaracteristica.model';
+import { ServicioEmpleadosService } from '../servicio-empleados.service';
 @Component({
   selector: 'app-caracteristicas-empleado-c',
   templateUrl: './caracteristicas-empleado-c.component.html',
   styleUrls: ['./caracteristicas-empleado-c.component.css']
 })
 export class CaracteristicasEmpleadoCComponent {
+
+
+  constructor(
+    private miServicio:ServicioEmpleadosService
+  ){
+
+  }
 
   @Output() CaracteristicasEmpleados = new EventEmitter<empleadoCaracteristica>();
   @Input() nombres:string[];
@@ -16,6 +24,7 @@ export class CaracteristicasEmpleadoCComponent {
   }
   
   public agregarCaracteristica(nuevaCaracteristicaValue: string, nombre: string) {
+    this.miServicio.muestraMensaje(`Caracteristica Agregada: ${nuevaCaracteristicaValue}`)
     const nuevaCaracteristica: empleadoCaracteristica = {
       nombre: nombre,
       caracteristicas: [nuevaCaracteristicaValue] 
