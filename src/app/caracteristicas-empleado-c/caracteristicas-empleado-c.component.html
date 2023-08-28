@@ -1,9 +1,13 @@
 <div>
     <label for="caracteristica">Carcateristica:</label>
     <input type="text" id="caracteristica" #nuevaCaracteristicaNombre>
-  
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" #nuevoNombre>
+    <mat-form-field>
+      <mat-label>Select</mat-label>
+    <mat-select #nuevoNombre>
+      <mat-option *ngFor="let name of nombres" value="{{name}}">{{name}}</mat-option>
+    </mat-select>
+
+    </mat-form-field>
   
     <button type="button" (click)="agregarCaracteristica(nuevaCaracteristicaNombre.value, nuevoNombre.value)" mat-button>Agregar Caracteristica</button>
   </div>

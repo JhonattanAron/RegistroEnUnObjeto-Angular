@@ -1,12 +1,15 @@
+<app-caracteristicas-empleado-c (nombreEnviado)="recibirNombre($event)" [nombres]="cargarNombre()" (CaracteristicasEmpleados)="agregarCaracteristica($event)"></app-caracteristicas-empleado-c>
 <table #empleadosTable mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
   <ng-container *ngFor="let columna of empleadoDeLista" [matColumnDef]="columna"> 
     <th mat-header-cell *matHeaderCellDef> {{columna | titlecase}} </th>
     <td mat-cell *matCellDef="let empleado">
       
       <ng-container *ngIf="columna === 'acciones'; else otherColumn">
+        {{mostrarCaracteristicas(empleado.nombre)}}
       </ng-container>
       <ng-template #otherColumn>
-        {{ empleado[columna] }}
+        {{ empleado[columna] }} 
       </ng-template>
     </td>
   </ng-container>
@@ -15,4 +18,5 @@
   <tr mat-row *matRowDef="let row; columns: empleadoDeLista"></tr>
 
 </table>
-<app-caracteristicas-empleado-c (CaracteristicasEmpleados)="agregarCaracteristica($event)"></app-caracteristicas-empleado-c>
+
+

@@ -9,6 +9,8 @@ import { empleadoCaracteristica } from 'src/models/empleadoCaracteristica.model'
 })
 export class EmpleadoHijoCComponent {
 
+  protected nombreRecibido = "";
+
   @Input() empleadoDeLista: any;
   @Input() dataSource: any;
   @ViewChild('empleadosTable', { static: true }) table!: MatTable<any>;
@@ -17,25 +19,73 @@ export class EmpleadoHijoCComponent {
 
   arrayCaracteristicas: empleadoCaracteristica[] = [
     { nombre: "Aron", caracteristicas: ["Fundador", "Cultivador", "Formador"] },
-    { nombre: "Maria", caracteristicas: ["Directora", "Líder", "Estratega"] }
-    // ... otros objetos
+    { nombre: "Maria", caracteristicas: ["Directora", "Líder", "Estratega"] },
+    { nombre: "Laura", caracteristicas: ["Directora", "Líder", "Estratega"] },
   ];
+
+  cargarNombre() {
+    let nombres: string[] = this.arrayCaracteristicas.map(data => data.nombre);
+    console.log();
+    this.verificarName("jose");
+    return nombres;
+  }
+  recibirNombre(nombre: string) {
+    this.nombreRecibido = nombre;
+  }
+
+  verificarName(nombre: string) {
+    const nameInDataSource = this.dataSource.find((empleados: { nombre: string }) => empleados.nombre === nombre);
+    const nameInArrayCaracteristicas = this.arrayCaracteristicas.find((caracteristica) => caracteristica.nombre === nombre);
+  
+    if (nameInDataSource) {
+      console.log(`Nombre encontrado en dataSource: ${nameInDataSource.nombre}`);
+      return true;
+    } else if (!nameInArrayCaracteristicas) {
+      const empleado: empleadoCaracteristica = {
+        nombre: nombre,
+        caracteristicas: [],
+      };
+      this.arrayCaracteristicas.push(empleado);
+      console.log(`Nombre insertado en arrayCaracteristicas: ${nombre}`);
+      return false;
+    } else {
+      console.log(`Nombre ya existe en arrayCaracteristicas: ${nombre}`);
+      return false;
+    }
+  }
+  
+
+
+
 
   agregarCaracteristica(nuevaCaracteristica: empleadoCaracteristica) {
     const caracteristicaEncontrada = this.arrayCaracteristicas.find(caracteristica => caracteristica.nombre === nuevaCaracteristica.nombre);
-  
+
     if (caracteristicaEncontrada) {
       caracteristicaEncontrada.caracteristicas.push(...nuevaCaracteristica.caracteristicas);
-      console.log(caracteristicaEncontrada);
-      
     } else {
       console.log("Característica no encontrada");
     }
   }
-  
-  
+
+
+
+
 
   public updateTable(): void {
     this.table.renderRows();
   }
+
+  protected mostrarCaracteristicas(nombre: string): string | undefined {
+    const empleado = this.arrayCaracteristicas.find(c => c.nombre == nombre);
+    if (empleado) {
+      const caracteristicas = empleado.caracteristicas.join(" - ")
+      return caracteristicas;
+    } else {
+      return undefined;
+    }
+
+  }
+
+
 }
