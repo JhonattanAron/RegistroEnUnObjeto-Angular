@@ -52,7 +52,7 @@ export class AppComponent {
           this.cuadroNombre , [])
         this.dataCenter.guardarEnCaracteristicas(empleadoCaracteristica)
         this.dataCenter.agregarEmpleadoService(miEmpleado)
-        this.miServicio.muestraMensaje(`Nombre del Empleado Agregado: ${miEmpleado.nombre}`)
+        //this.miServicio.muestraMensaje(`Nombre del Empleado Agregado: ${miEmpleado.nombre}`)
         this.empleadosTableComponent.updateTable();
         this.limpiarCuadros()
       }
