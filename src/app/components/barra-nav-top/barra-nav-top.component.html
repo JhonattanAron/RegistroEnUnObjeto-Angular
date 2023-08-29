@@ -1,7 +1,10 @@
 <nav>
     <ul class="nav">
         <li *ngFor="let links of paginas">
-            <a class="link" href="#">{{links | titlecase}}</a>
+            <a *ngIf="links == 'home';else otherlink " class="link" href="">{{links | titlecase}}</a>
+            <ng-template #otherlink>
+                <a class="link" href="{{links}}">{{links | titlecase}}</a>
+            </ng-template> 
         </li>
     </ul>
 </nav>

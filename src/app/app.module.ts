@@ -22,7 +22,14 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProyectosComponent } from './pages/proyectos/proyectos.component';
 import { QuienesSomosComponent } from './pages/quienes-somos/quienes-somos.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
+import { Routes , RouterModule } from '@angular/router';
 
+const appRoutes:Routes=[
+  {path:'',component:HomeComponent},
+  {path:'proyectos', component:ProyectosComponent},
+  {path:'quienes somos', component:QuienesSomosComponent},
+  {path:'contacto', component:ContactoComponent},
+]
 
 @NgModule({
   declarations: [
@@ -40,7 +47,8 @@ import { ContactoComponent } from './pages/contacto/contacto.component';
     BrowserAnimationsModule,
     FormsModule, MatTableModule , MatButtonModule,
     MatIconModule , MatCardModule , MatInputModule , MatFormFieldModule,
-    MatSnackBarModule , MatMenuModule , MatSelectModule
+    MatSnackBarModule , MatMenuModule , MatSelectModule , 
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [ServicioEmpleadosService, EmpleadosService],
   bootstrap: [AppComponent]
