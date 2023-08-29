@@ -17,13 +17,23 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatMenuModule} from '@angular/material/menu';
 import { ServicioEmpleadosService } from './services/servicio-empleados.service';
 import { EmpleadosService } from './services/empleados.service';
+import { BarraNavTopComponent } from './components/barra-nav-top/barra-nav-top.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ProyectosComponent } from './pages/proyectos/proyectos.component';
+import { QuienesSomosComponent } from './pages/quienes-somos/quienes-somos.component';
+import { ContactoComponent } from './pages/contacto/contacto.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     EmpleadoHijoCComponent,
-    CaracteristicasEmpleadoCComponent
+    CaracteristicasEmpleadoCComponent,
+    BarraNavTopComponent,
+    HomeComponent,
+    ProyectosComponent,
+    QuienesSomosComponent,
+    ContactoComponent,
   ],
   imports: [
     BrowserModule,

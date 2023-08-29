@@ -1,0 +1,28 @@
+.nav{
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(39,149,81,1) 0%, rgba(0,212,255,1) 100%);
+    padding: 20px;
+    position: sticky;
+    transform: translateY(-14px);
+}
+
+.link{
+    text-decoration: none;
+    font-size: 17px;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+    padding: 10px;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.link:hover{
+    transition: 0.3s;
+    font-size: 20px;
+    background: rgb(159, 215, 241);
+    color: black;
+    border-radius: 10px;
+}
