@@ -1,0 +1,17 @@
+<div class="mat-elevation-z8 cont">
+  <div class="input">
+    <label for="caracteristica">Carcateristica:</label>
+    <input type="text" id="caracteristica" #nuevaCaracteristicaNombre class="mat-elevation-z8">
+  </div>
+  <div class="botones">
+    <mat-form-field class="Select">
+      <mat-label>Select</mat-label>
+      <mat-select #nuevoNombre>
+        <mat-option *ngFor="let name of nombres" value="{{name}}">{{name}}</mat-option>
+      </mat-select>
+
+    </mat-form-field>
+    <button type="button" (click)="agregarCaracteristica(nuevaCaracteristicaNombre.value, nuevoNombre.value)"
+      mat-flat-button color="primary">Agregar Caracteristica</button>
+  </div>
+</div>

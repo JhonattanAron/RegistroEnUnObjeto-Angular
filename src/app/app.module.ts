@@ -11,11 +11,12 @@ import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {EmpleadoHijoCComponent } from './empleado-hijo-c/empleado-hijo-c.component';
-import {CaracteristicasEmpleadoCComponent } from './caracteristicas-empleado-c/caracteristicas-empleado-c.component';
+import {EmpleadoHijoCComponent } from './components/empleado-hijo-c/empleado-hijo-c.component';
+import {CaracteristicasEmpleadoCComponent } from './components/caracteristicas-empleado-c/caracteristicas-empleado-c.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatMenuModule} from '@angular/material/menu';
-import { ServicioEmpleadosService } from './servicio-empleados.service';
+import { ServicioEmpleadosService } from './services/servicio-empleados.service';
+import { EmpleadosService } from './services/empleados.service';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { ServicioEmpleadosService } from './servicio-empleados.service';
     MatIconModule , MatCardModule , MatInputModule , MatFormFieldModule,
     MatSnackBarModule , MatMenuModule , MatSelectModule
   ],
-  providers: [ServicioEmpleadosService],
+  providers: [ServicioEmpleadosService, EmpleadosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,7 +1,9 @@
 import { Component , ViewChild } from '@angular/core';
 import { Empleado } from 'src/models/empleado.model';
-import { EmpleadoHijoCComponent } from './empleado-hijo-c/empleado-hijo-c.component';
-import { ServicioEmpleadosService } from './servicio-empleados.service';
+import { EmpleadoCaracteristica } from 'src/models/empleadoCaracteristica.model';
+import { EmpleadoHijoCComponent } from './components/empleado-hijo-c/empleado-hijo-c.component';
+import { ServicioEmpleadosService } from './services/servicio-empleados.service';
+import { EmpleadosService } from './services/empleados.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,38 +15,50 @@ export class AppComponent {
   protected cuadroApellido:string = "";
   protected cuadroCargo:string = "";
   protected cuadroSalario:number = 0;
-  protected empleados:Empleado[] = [
-    new Empleado("Aron" , "Cachago" , "Programador", 2500),
-    new Empleado("Maria" , "Cuti" , "Talentos Humanos", 1000),
-    new Empleado("Laura" , "Lopez" , "Administrativo", 800)
-  ];
+  protected empleados:Empleado[]=[];
+  
 
 
 
   protected columnas:string[] = ['nombre' ,
    'apellido' , 'cargo' , 
-   'salario', 'acciones']
+   'salario', 'caracteristicas']
 
   @ViewChild(EmpleadoHijoCComponent , 
     {static: false}) empleadosTableComponent:EmpleadoHijoCComponent;
 
   constructor(
-    private miServicio:ServicioEmpleadosService
+    private miServicio:ServicioEmpleadosService,
+    private dataCenter:EmpleadosService
     ){
-
+      this.empleados = dataCenter.empleados
     }
 
 
   protected agregarEmpleado(){
 
-    let miEmpleado = new Empleado(this.cuadroNombre , 
-      this.cuadroApellido , this.cuadroCargo , 
+    let miEmpleado = new Empleado(
+      this.cuadroNombre , 
+      this.cuadroApellido , 
+      this.cuadroCargo , 
       this.cuadroSalario);
 
-    this.empleados.push(miEmpleado);
-    this.empleadosTableComponent.updateTable();
-    this.limpiarCuadros()
-    this.miServicio.muestraMensaje(`Nombre del Empleado Agregado: ${miEmpleado.nombre}`)
+      if (this.cuadroNombre == "" 
+      || this.cuadroApellido == '' 
+      || this.cuadroCargo == '') {
+        this.miServicio.muestraMensaje("LLena Todos Los Campos Por Favor")
+      }else{
+        let empleadoCaracteristica = new EmpleadoCaracteristica(
+          this.cuadroNombre , [])
+        this.dataCenter.guardarEnCaracteristicas(empleadoCaracteristica)
+        this.dataCenter.agregarEmpleadoService(miEmpleado)
+        this.miServicio.muestraMensaje(`Nombre del Empleado Agregado: ${miEmpleado.nombre}`)
+        this.empleadosTableComponent.updateTable();
+        this.limpiarCuadros()
+      }
+  
+    
+    
   }
   protected limpiarCuadros(){
       this.cuadroNombre = "";

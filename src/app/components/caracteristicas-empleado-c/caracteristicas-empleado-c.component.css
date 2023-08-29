@@ -1,0 +1,28 @@
+.botones{
+    margin: 3vh;
+    width: 100%;
+}
+.Select{
+    width: 30vh;
+    margin-right: 20px;
+}
+.input{
+    display: flex;
+    flex-direction: column;
+}
+.input>input{
+    padding: 30px 10px 10px;
+    border: none;
+    background-color: aliceblue;
+    width: 25vh;
+}
+.cont{
+    display: flex;
+    padding: 10px 3vh ;
+}
+.input>label{
+    font-size: 1.2rem;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 5px;
+    margin-bottom: 7px;
+}
