@@ -23,7 +23,7 @@ export class HomeComponent {
 
   protected columnas:string[] = ['nombre' ,
    'apellido' , 'cargo' , 
-   'salario', 'caracteristicas']
+   'salario', 'caracteristicas' , 'acciones']
 
   @ViewChild(EmpleadoHijoCComponent , 
     {static: false}) empleadosTableComponent:EmpleadoHijoCComponent;

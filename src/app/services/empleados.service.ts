@@ -16,7 +16,7 @@ export class EmpleadosService {
   public empleadoCaracteristicas: EmpleadoCaracteristica[] = [
     { nombre: "Aron", caracteristicas: ["Fundador", "Cultivador", "Formador"] },
     { nombre: "Maria", caracteristicas: ["Directora", "Líder", "Estratega"] },
-    { nombre: "Laura", caracteristicas: ["Directora", "Líder", "Estratega"] },
+    { nombre: "Laura", caracteristicas: ["Creativa", "Jugadora", "Inteligente"] },
   ];
   constructor(private servicioVentana:ServicioEmpleadosService) {
     
@@ -35,5 +35,19 @@ export class EmpleadosService {
   }
   guardarEnCaracteristicas(empleado:EmpleadoCaracteristica){
     this.empleadoCaracteristicas.push(empleado)
+  }
+  buscarPorNombre(name:string): Empleado | undefined{
+    return this.empleados.find(empleado=> empleado.nombre == name);
+  }
+  actualizarEmpleado(empleado:Empleado){
+    const index = this.empleados.findIndex(data => data.nombre==empleado.nombre)
+    if (index != -1) {
+      console.log(index);
+      this.empleados[index] = empleado;
+    }else{
+      console.log("El empleado no se Econtro");
+      
+    }
+
   }
 }

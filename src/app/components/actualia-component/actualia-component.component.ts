@@ -1,23 +1,24 @@
-import { Component, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { EmpleadoHijoCComponent } from 'src/app/components/empleado-hijo-c/empleado-hijo-c.component';
+import { Component, OnInit } from '@angular/core';
+import { Router , ActivatedRoute } from '@angular/router';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { ServicioEmpleadosService } from 'src/app/services/servicio-empleados.service';
 import { Empleado } from 'src/models/empleado.model';
 import { EmpleadoCaracteristica } from 'src/models/empleadoCaracteristica.model';
 
 @Component({
-  selector: 'app-proyectos',
-  templateUrl: './proyectos.component.html',
-  styleUrls: ['./proyectos.component.css']
+  selector: 'app-actualia-component',
+  templateUrl: './actualia-component.component.html',
+  styleUrls: ['./actualia-component.component.css']
 })
-export class ProyectosComponent {
+export class ActualiaComponentComponent implements OnInit {
+  
   protected titulo = 'Listado de Empleados';
   protected cuadroNombre: string = "";
   protected cuadroApellido: string = "";
   protected cuadroCargo: string = "";
   protected cuadroSalario: number = 0;
   protected empleados: Empleado[] = [];
+  protected empleadoRecibido:Empleado | undefined;
 
   protected columnas: string[] = ['nombre',
     'apellido', 'cargo',
@@ -26,9 +27,27 @@ export class ProyectosComponent {
   constructor(
     private miServicio: ServicioEmpleadosService,
     private router: Router,
-    private dataCenter: EmpleadosService
+    private dataCenter: EmpleadosService,
+    private route:ActivatedRoute
   ) {
     this.empleados = dataCenter.empleados
+    
+  }
+  ngOnInit(): void {
+    this.route.params.subscribe(param => {
+      const nombre = param['nombre'];
+      console.log(nombre);
+      this.empleadoRecibido = this.dataCenter.buscarPorNombre(nombre);
+      this.setCuadros();
+    });
+  }
+  
+
+  setCuadros(){
+    this.cuadroNombre = this.empleadoRecibido?.nombre ?? "Sin Definir";
+    this.cuadroApellido = this.empleadoRecibido?.apellido ?? "Sin Definir";
+    this.cuadroCargo = this.empleadoRecibido?.cargo ?? "Sin Definir";
+    this.cuadroSalario = this.empleadoRecibido?.salario ?? 0;
   }
 
 
@@ -48,16 +67,10 @@ export class ProyectosComponent {
       ) {
       this.miServicio.muestraMensaje("LLena Todos Los Campos Por Favor")
     } else {
-      let empleadoCaracteristica = new EmpleadoCaracteristica(
-        this.cuadroNombre, [])
-      this.dataCenter.guardarEnCaracteristicas(empleadoCaracteristica)
-      this.dataCenter.agregarEmpleadoService(miEmpleado)
-      this.limpiarCuadros()
-      this.router.navigate([''])
+        this.dataCenter.actualizarEmpleado(miEmpleado)
+        this.limpiarCuadros()
+        this.router.navigate([''])
     }
-
-
-
 
   }
   protected limpiarCuadros() {
@@ -67,10 +80,8 @@ export class ProyectosComponent {
     this.cuadroSalario = 0;
   }
 
-
-
-
   protected volverHome() {
     this.router.navigate(['']);
   }
+
 }

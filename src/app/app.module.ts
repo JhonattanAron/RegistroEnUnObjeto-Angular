@@ -23,12 +23,14 @@ import { ProyectosComponent } from './pages/proyectos/proyectos.component';
 import { QuienesSomosComponent } from './pages/quienes-somos/quienes-somos.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { Routes , RouterModule } from '@angular/router';
+import { ActualiaComponentComponent } from './components/actualia-component/actualia-component.component';
 
 const appRoutes:Routes=[
   {path:'',component:HomeComponent},
   {path:'proyectos', component:ProyectosComponent},
   {path:'quienes somos', component:QuienesSomosComponent},
   {path:'contacto', component:ContactoComponent},
+  {path:'actualizar/:nombre', component:ActualiaComponentComponent},
 ]
 
 @NgModule({
@@ -41,6 +43,7 @@ const appRoutes:Routes=[
     ProyectosComponent,
     QuienesSomosComponent,
     ContactoComponent,
+    ActualiaComponentComponent,
   ],
   imports: [
     BrowserModule,

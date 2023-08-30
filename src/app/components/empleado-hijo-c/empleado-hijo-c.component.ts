@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { EmpleadosService } from 'src/app/services/empleados.service';
+import { ServicioEmpleadosService } from 'src/app/services/servicio-empleados.service';
 import { EmpleadoCaracteristica } from 'src/models/empleadoCaracteristica.model';
 
 @Component({
@@ -19,7 +20,10 @@ export class EmpleadoHijoCComponent {
 
   @Output() nuevaCaracteristica = new EventEmitter<object>();
 
-  constructor(private empleadosServie:EmpleadosService){
+  constructor(
+    private empleadosServie:EmpleadosService,
+    private servicioVentana:ServicioEmpleadosService
+  ){
     this.arrayCaracteristicas = empleadosServie.empleadoCaracteristicas;
   
   }
@@ -41,6 +45,7 @@ export class EmpleadoHijoCComponent {
   agregarCaracteristica(nuevaCaracteristica: EmpleadoCaracteristica) {
     const caracteristicaEncontrada = this.arrayCaracteristicas.find(caracteristica => caracteristica.nombre === nuevaCaracteristica.nombre);
     if (caracteristicaEncontrada) {
+      this.servicioVentana.muestraMensaje(`Caracteristica Agregada al empleado: ${nuevaCaracteristica.nombre}`)
       caracteristicaEncontrada.caracteristicas.push(...nuevaCaracteristica.caracteristicas);
     } else {
       console.log("Característica no encontrada");
@@ -52,11 +57,10 @@ export class EmpleadoHijoCComponent {
     this.table.renderRows();
   }
 
-  protected mostrarCaracteristicas(nombre: string): string | undefined {
+  protected mostrarCaracteristicas(nombre: string): string[] | undefined {
     const empleado = this.arrayCaracteristicas.find(c => c.nombre == nombre);
     if (empleado) {
-      const caracteristicas = empleado.caracteristicas.join(" - ")
-      return caracteristicas;
+      return empleado.caracteristicas;
     } else {
       return undefined;
     }

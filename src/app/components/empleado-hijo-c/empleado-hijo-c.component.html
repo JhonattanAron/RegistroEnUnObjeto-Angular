@@ -1,15 +1,31 @@
-<app-caracteristicas-empleado-c (nombreEnviado)="recibirNombre($event)" [nombres]="cargarNombre()" (CaracteristicasEmpleados)="agregarCaracteristica($event)"></app-caracteristicas-empleado-c>
+<app-caracteristicas-empleado-c (nombreEnviado)="recibirNombre($event)" [nombres]="cargarNombre()"
+  (CaracteristicasEmpleados)="agregarCaracteristica($event)"></app-caracteristicas-empleado-c>
 <table #empleadosTable mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  
-  <ng-container *ngFor="let columna of empleadoDeLista" [matColumnDef]="columna"> 
+  <ng-container *ngFor="let columna of empleadoDeLista; let i = index" [matColumnDef]="columna">
     <th mat-header-cell *matHeaderCellDef> {{columna | titlecase}} </th>
     <td mat-cell *matCellDef="let empleado">
-      
+
       <ng-container *ngIf="columna === 'caracteristicas'; else otherColumn">
-        {{mostrarCaracteristicas(empleado.nombre)}}
+        <button mat-flat-button color="primary" [matMenuTriggerFor]="menu">Ver caracteristicas</button>
+        <mat-menu #menu="matMenu">
+          <li style="margin: 5px;" *ngFor="let caracteristica of mostrarCaracteristicas(empleado.nombre)"> - {{caracteristica}}</li>
+        </mat-menu>
       </ng-container>
+
+      <ng-container *ngIf="columna === 'acciones'">
+        <button style="margin: 10px;" mat-flat-button color="accent">
+          <a style="text-decoration: none;color: white;" [routerLink]="['/actualizar',empleado.nombre]">
+            Editar</a>
+        </button>
+
+        <button style="margin: 10px;" mat-flat-button color="warn">
+          <a style="text-decoration: none;color: white;" [routerLink]="['/actualizar', empleado.nombre]">
+            Eliminar</a>
+        </button>
+      </ng-container>
+
       <ng-template #otherColumn>
-        {{ empleado[columna] }} 
+        {{ empleado[columna] }}
       </ng-template>
     </td>
   </ng-container>
@@ -18,5 +34,3 @@
   <tr mat-row *matRowDef="let row; columns: empleadoDeLista"></tr>
 
 </table>
-
-
