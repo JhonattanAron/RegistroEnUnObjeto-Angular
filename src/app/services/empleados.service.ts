@@ -48,6 +48,14 @@ export class EmpleadosService {
       console.log("El empleado no se Econtro");
       
     }
-
+  }
+  eliminarEmpleado(nombre:string){
+    const index = this.empleados.findIndex(data => data.nombre == nombre)
+    if (index != -1) {
+      console.log(index);
+      this.empleados.splice(index , 1)
+    }else[
+      console.log("El empleado no se Econtro")
+    ]
   }
 }

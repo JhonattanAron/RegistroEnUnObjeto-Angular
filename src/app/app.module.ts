@@ -24,6 +24,8 @@ import { QuienesSomosComponent } from './pages/quienes-somos/quienes-somos.compo
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { Routes , RouterModule } from '@angular/router';
 import { ActualiaComponentComponent } from './components/actualia-component/actualia-component.component';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
+import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
 
 const appRoutes:Routes=[
   {path:'',component:HomeComponent},
@@ -44,6 +46,8 @@ const appRoutes:Routes=[
     QuienesSomosComponent,
     ContactoComponent,
     ActualiaComponentComponent,
+    DialogConfirmComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -51,6 +55,7 @@ const appRoutes:Routes=[
     FormsModule, MatTableModule , MatButtonModule,
     MatIconModule , MatCardModule , MatInputModule , MatFormFieldModule,
     MatSnackBarModule , MatMenuModule , MatSelectModule , 
+    MatDialogModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ServicioEmpleadosService, EmpleadosService],

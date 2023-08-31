@@ -1,8 +1,11 @@
 import { Component, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { ServicioEmpleadosService } from 'src/app/services/servicio-empleados.service';
 import { EmpleadoCaracteristica } from 'src/models/empleadoCaracteristica.model';
+import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
+import { Empleado } from 'src/models/empleado.model';
 
 @Component({
   selector: 'app-empleado-hijo-c',
@@ -22,13 +25,12 @@ export class EmpleadoHijoCComponent {
 
   constructor(
     private empleadosServie:EmpleadosService,
-    private servicioVentana:ServicioEmpleadosService
+    private servicioVentana:ServicioEmpleadosService,
+    public dialog:MatDialog
   ){
     this.arrayCaracteristicas = empleadosServie.empleadoCaracteristicas;
   
   }
-
-  
 
   
   cargarNombre() {
@@ -37,10 +39,6 @@ export class EmpleadoHijoCComponent {
   recibirNombre(nombre: string) {
     this.nombreRecibido = nombre;
   }
-
-
-
-
 
   agregarCaracteristica(nuevaCaracteristica: EmpleadoCaracteristica) {
     const caracteristicaEncontrada = this.arrayCaracteristicas.find(caracteristica => caracteristica.nombre === nuevaCaracteristica.nombre);
@@ -64,6 +62,28 @@ export class EmpleadoHijoCComponent {
     } else {
       return undefined;
     }
+
+  }
+  protected eliminarEmpleado(title:string  , pregunta:string , empleadoNombre:string){
+    const dialogRef =  this.dialog.open(DialogConfirmComponent , {
+      height: '210px',
+      width: '610px',
+      data: {
+        title: title,
+        pregunta: pregunta
+      }
+    })
+    dialogRef.afterClosed().subscribe(result =>{
+      if (result == 'confirmar') {
+        this.empleadosServie.eliminarEmpleado(empleadoNombre)
+        this.table.renderRows()
+        console.log("Confirmado");
+      } else{
+        console.log("Cancelado");
+      }
+    })
+
+    
 
   }
 

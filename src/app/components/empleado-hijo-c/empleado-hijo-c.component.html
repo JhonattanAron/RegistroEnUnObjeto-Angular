@@ -18,9 +18,12 @@
             Editar</a>
         </button>
 
-        <button style="margin: 10px;" mat-flat-button color="warn">
-          <a style="text-decoration: none;color: white;" [routerLink]="['/actualizar', empleado.nombre]">
-            Eliminar</a>
+        <button style="margin: 10px;" mat-flat-button color="warn" 
+        (click)="eliminarEmpleado('Eliminar Empleado' ,
+         'Seguro que quieres eliminar el Empleado',
+         empleado.nombre)"
+        >
+          Eliminar
         </button>
       </ng-container>
 

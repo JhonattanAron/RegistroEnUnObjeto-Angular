@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router , ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { ServicioEmpleadosService } from 'src/app/services/servicio-empleados.service';
 import { Empleado } from 'src/models/empleado.model';
@@ -11,14 +11,14 @@ import { EmpleadoCaracteristica } from 'src/models/empleadoCaracteristica.model'
   styleUrls: ['./actualia-component.component.css']
 })
 export class ActualiaComponentComponent implements OnInit {
-  
+
   protected titulo = 'Listado de Empleados';
   protected cuadroNombre: string = "";
   protected cuadroApellido: string = "";
   protected cuadroCargo: string = "";
   protected cuadroSalario: number = 0;
   protected empleados: Empleado[] = [];
-  protected empleadoRecibido:Empleado | undefined;
+  protected empleadoRecibido: Empleado | undefined;
 
   protected columnas: string[] = ['nombre',
     'apellido', 'cargo',
@@ -28,22 +28,23 @@ export class ActualiaComponentComponent implements OnInit {
     private miServicio: ServicioEmpleadosService,
     private router: Router,
     private dataCenter: EmpleadosService,
-    private route:ActivatedRoute
+    private route: ActivatedRoute
   ) {
     this.empleados = dataCenter.empleados
-    
+
   }
   ngOnInit(): void {
-    this.route.params.subscribe(param => {
-      const nombre = param['nombre'];
-      console.log(nombre);
-      this.empleadoRecibido = this.dataCenter.buscarPorNombre(nombre);
-      this.setCuadros();
-    });
-  }
-  
 
-  setCuadros(){
+    const nombre = this.route.snapshot.params['nombre']
+    console.log(nombre);
+    this.empleadoRecibido = this.dataCenter.buscarPorNombre(nombre);
+    this.setCuadros();
+
+
+  }
+
+
+  setCuadros(): void {
     this.cuadroNombre = this.empleadoRecibido?.nombre ?? "Sin Definir";
     this.cuadroApellido = this.empleadoRecibido?.apellido ?? "Sin Definir";
     this.cuadroCargo = this.empleadoRecibido?.cargo ?? "Sin Definir";
@@ -64,12 +65,12 @@ export class ActualiaComponentComponent implements OnInit {
       this.cuadroNombre == ""
       || this.cuadroApellido == ''
       || this.cuadroCargo == ''
-      ) {
+    ) {
       this.miServicio.muestraMensaje("LLena Todos Los Campos Por Favor")
     } else {
-        this.dataCenter.actualizarEmpleado(miEmpleado)
-        this.limpiarCuadros()
-        this.router.navigate([''])
+      this.dataCenter.actualizarEmpleado(miEmpleado)
+      this.limpiarCuadros()
+      this.router.navigate([''])
     }
 
   }

@@ -7,10 +7,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ServicioEmpleadosService {
 
   constructor(
-    private ventana:MatSnackBar
+    private ventana:MatSnackBar,
     ) { }
 
   muestraMensaje(mensaje:string){
     this.ventana.open(mensaje, "close")
   }
+  
 }
