@@ -19,6 +19,7 @@ export class ActualiaComponentComponent implements OnInit {
   protected cuadroSalario: number = 0;
   protected empleados: Empleado[] = [];
   protected empleadoRecibido: Empleado | undefined;
+  protected accion:number;
 
   protected columnas: string[] = ['nombre',
     'apellido', 'cargo',
@@ -31,16 +32,13 @@ export class ActualiaComponentComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.empleados = dataCenter.empleados
-
   }
   ngOnInit(): void {
-
+    this.accion= parseInt(this.route.snapshot.queryParams['accion']);
     const nombre = this.route.snapshot.params['nombre']
     console.log(nombre);
     this.empleadoRecibido = this.dataCenter.buscarPorNombre(nombre);
     this.setCuadros();
-
-
   }
 
 
@@ -54,24 +52,33 @@ export class ActualiaComponentComponent implements OnInit {
 
   protected agregarEmpleado() {
 
-    let miEmpleado = new Empleado(
-      this.cuadroNombre,
-      this.cuadroApellido,
-      this.cuadroCargo,
-      this.cuadroSalario
-    );
-
-    if (
-      this.cuadroNombre == ""
-      || this.cuadroApellido == ''
-      || this.cuadroCargo == ''
-    ) {
-      this.miServicio.muestraMensaje("LLena Todos Los Campos Por Favor")
-    } else {
-      this.dataCenter.actualizarEmpleado(miEmpleado)
-      this.limpiarCuadros()
-      this.router.navigate([''])
+    if (this.accion == 1) {
+      console.log("la accion es 1");
+      
+      let miEmpleado = new Empleado(
+        this.cuadroNombre,
+        this.cuadroApellido,
+        this.cuadroCargo,
+        this.cuadroSalario
+      );
+  
+      if (
+        this.cuadroNombre == ""
+        || this.cuadroApellido == ''
+        || this.cuadroCargo == ''
+      ) {
+        this.miServicio.muestraMensaje("LLena Todos Los Campos Por Favor")
+      } else {
+        this.dataCenter.actualizarEmpleado(miEmpleado)
+        this.limpiarCuadros()
+        this.router.navigate([''])
+      } 
+    }else{
+      console.log("La accion no es 1");
+      
     }
+
+    
 
   }
   protected limpiarCuadros() {

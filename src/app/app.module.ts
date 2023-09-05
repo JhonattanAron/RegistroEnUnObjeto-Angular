@@ -24,15 +24,19 @@ import { QuienesSomosComponent } from './pages/quienes-somos/quienes-somos.compo
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { Routes , RouterModule } from '@angular/router';
 import { ActualiaComponentComponent } from './components/actualia-component/actualia-component.component';
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule} from '@angular/material/dialog';
 import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
-
+import { ErrorPersonalizadoComponent } from './pages/error-personalizado/error-personalizado.component';
+import { DataServices } from './services/data.sevice';
+import { HttpClientModule } from '@angular/common/http';
 const appRoutes:Routes=[
   {path:'',component:HomeComponent},
+  {path:'home', component:HomeComponent},
   {path:'proyectos', component:ProyectosComponent},
   {path:'quienes somos', component:QuienesSomosComponent},
   {path:'contacto', component:ContactoComponent},
   {path:'actualizar/:nombre', component:ActualiaComponentComponent},
+  {path:'**' , component:ErrorPersonalizadoComponent}
 ]
 
 @NgModule({
@@ -55,10 +59,13 @@ const appRoutes:Routes=[
     FormsModule, MatTableModule , MatButtonModule,
     MatIconModule , MatCardModule , MatInputModule , MatFormFieldModule,
     MatSnackBarModule , MatMenuModule , MatSelectModule , 
-    MatDialogModule,
+    MatDialogModule, HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ServicioEmpleadosService, EmpleadosService],
+  providers: [ServicioEmpleadosService,
+    EmpleadosService,
+    DataServices,
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

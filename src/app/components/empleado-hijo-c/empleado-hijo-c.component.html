@@ -1,4 +1,4 @@
-<app-caracteristicas-empleado-c (nombreEnviado)="recibirNombre($event)" [nombres]="cargarNombre()"
+<app-caracteristicas-empleado-c (nombreEnviado)="recibirNombre($event)" [nombres]="['aron']"
   (CaracteristicasEmpleados)="agregarCaracteristica($event)"></app-caracteristicas-empleado-c>
 <table #empleadosTable mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container *ngFor="let columna of empleadoDeLista; let i = index" [matColumnDef]="columna">
@@ -14,10 +14,9 @@
 
       <ng-container *ngIf="columna === 'acciones'">
         <button style="margin: 10px;" mat-flat-button color="accent">
-          <a style="text-decoration: none;color: white;" [routerLink]="['/actualizar',empleado.nombre]">
+          <a style="text-decoration: none;color: white;" [routerLink]="['/actualizar',empleado.nombre]" [queryParams]="{accion:'1'}" >
             Editar</a>
         </button>
-
         <button style="margin: 10px;" mat-flat-button color="warn" 
         (click)="eliminarEmpleado('Eliminar Empleado' ,
          'Seguro que quieres eliminar el Empleado',

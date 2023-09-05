@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { EmpleadosService } from 'src/app/services/empleados.service';
@@ -6,19 +6,22 @@ import { ServicioEmpleadosService } from 'src/app/services/servicio-empleados.se
 import { EmpleadoCaracteristica } from 'src/models/empleadoCaracteristica.model';
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
 import { Empleado } from 'src/models/empleado.model';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-empleado-hijo-c',
   templateUrl: './empleado-hijo-c.component.html',
   styleUrls: ['./empleado-hijo-c.component.css']
 })
-export class EmpleadoHijoCComponent {
+export class EmpleadoHijoCComponent implements OnChanges   {
 
   protected nombreRecibido = "";
   protected arrayCaracteristicas:EmpleadoCaracteristica[] = [];
 
   @Input() empleadoDeLista: any;
-  @Input() dataSource: any;
+  dataSource: Observable<any[]> = of([]);
+  private dataSourceSubject = new BehaviorSubject<any>(null);
+
   @ViewChild('empleadosTable', { static: true }) table!: MatTable<any>;
 
   @Output() nuevaCaracteristica = new EventEmitter<object>();
@@ -29,13 +32,21 @@ export class EmpleadoHijoCComponent {
     public dialog:MatDialog
   ){
     this.arrayCaracteristicas = empleadosServie.empleadoCaracteristicas;
-  
+    empleadosServie.obtenerEmpleados().then(
+      data=>{
+        this.dataSource = of(data)
+      }
+    )
   }
-
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['dataSource']) {
+      this.dataSourceSubject.next(changes['dataSource'].currentValue)
+    }
+  }
   
-  cargarNombre() {
+  /*cargarNombre() {
     return this.empleadosServie.obtenerNombres()
-  }
+  }*/
   recibirNombre(nombre: string) {
     this.nombreRecibido = nombre;
   }

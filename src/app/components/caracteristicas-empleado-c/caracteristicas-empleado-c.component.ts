@@ -17,7 +17,7 @@ export class CaracteristicasEmpleadoCComponent {
   }
 
   @Output() CaracteristicasEmpleados = new EventEmitter<EmpleadoCaracteristica>();
-  @Input() nombres:string[];
+  @Input() nombres:string[] | undefined;
   @Output() nombreEnviado = new EventEmitter<string>();
 
   enviarNombre(nombre: string) {

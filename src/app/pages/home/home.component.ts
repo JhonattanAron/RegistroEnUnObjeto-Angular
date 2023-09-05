@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EmpleadoHijoCComponent } from 'src/app/components/empleado-hijo-c/empleado-hijo-c.component';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { ServicioEmpleadosService } from 'src/app/services/servicio-empleados.service';
@@ -10,16 +10,13 @@ import { EmpleadoCaracteristica } from 'src/models/empleadoCaracteristica.model'
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   protected titulo = 'Listado de Empleados';
   protected cuadroNombre:string = "";
   protected cuadroApellido:string = "";
   protected cuadroCargo:string = "";
   protected cuadroSalario:number = 0;
   protected empleados:Empleado[]=[];
-  
-
-
 
   protected columnas:string[] = ['nombre' ,
    'apellido' , 'cargo' , 
@@ -32,9 +29,20 @@ export class HomeComponent {
     private miServicio:ServicioEmpleadosService,
     private dataCenter:EmpleadosService
     ){
-      this.empleados = dataCenter.empleados
+      this.obtenerData()
     }
 
+    ngOnInit(): void {
+    }
+
+  obtenerData(){
+    this.dataCenter.obtenerEmpleados()
+    .then(response =>{
+      this.empleados = response
+      this.empleadosTableComponent.updateTable()
+    })
+  }
+  
 
   protected agregarEmpleado(){
 
@@ -53,8 +61,8 @@ export class HomeComponent {
           this.cuadroNombre , [])
         this.dataCenter.guardarEnCaracteristicas(empleadoCaracteristica)
         this.dataCenter.agregarEmpleadoService(miEmpleado)
-        //this.miServicio.muestraMensaje(`Nombre del Empleado Agregado: ${miEmpleado.nombre}`)
         this.empleadosTableComponent.updateTable();
+        this.obtenerData()
         this.limpiarCuadros()
       }
   
